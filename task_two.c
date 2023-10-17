@@ -1,5 +1,5 @@
 #include <stdio.h>
-#define MAP_SIZE 7
+#define MAP_SIZE 15
 
 void PrintArray(int values[MAP_SIZE][MAP_SIZE]) {
     
@@ -28,11 +28,12 @@ void InitialiseMap(int map[MAP_SIZE][MAP_SIZE]) {
     for (int ship_num = 0; ship_num < 4; ship_num++)
     {
         
+        ship_row = ship_num*(MAP_SIZE-1)/3;
+
         for (int ship_block = 0; ship_block < ship_lengths[ship_num]; ship_block++) {   
             map[ship_row][ship_block] = ship_lengths[ship_num];
         }
 
-        ship_row += (MAP_SIZE-1)/3;
     }
     
     
