@@ -16,7 +16,6 @@ void PrintArray(int values[MAP_SIZE][MAP_SIZE]) {
         }
         printf("\n");
     }
-    
 
 }
 
