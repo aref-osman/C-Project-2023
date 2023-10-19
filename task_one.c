@@ -1,5 +1,5 @@
 #include <stdio.h>
-#define MAP_SIZE 5
+#define MAP_SIZE 6
 
 void PrintArray(int values[MAP_SIZE][MAP_SIZE]) {
     
@@ -21,10 +21,16 @@ void PrintArray(int values[MAP_SIZE][MAP_SIZE]) {
 
 int main(void) {
 
-    int val[MAP_SIZE][MAP_SIZE] = 
-    {{1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}, {1, 2, 3, 4, 5}};
 
-    PrintArray(val);
+    int map1[MAP_SIZE][MAP_SIZE];
+    // Initialise the array
+    for (int i = 0; i < MAP_SIZE; i++) {
+        for (int j = 0; j < MAP_SIZE; j++) {
+            map1[i][j] = 0;    
+        }
+    }
+
+    PrintArray(map1);
 
     return 0;
 }
