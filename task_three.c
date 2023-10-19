@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define MAP_SIZE 8
+#include <time.h>
+#define MAP_SIZE 6
+
+
 
 void PrintArray(int values[MAP_SIZE][MAP_SIZE]) {
     
@@ -27,20 +30,16 @@ void AddRandomShip(int size, int map[MAP_SIZE][MAP_SIZE]) {
     int initial_col = 0;
     int max_index = MAP_SIZE - size;
 
-    direction = (double)rand()/RAND_MAX;
-    
-    //printf("number: %f\n", direction);
+    direction = (rand() % 2);
+    printf("direction: %f\n", direction);
+    printf("max value: %d\n\n", RAND_MAX);
     
 
     // 50% chance the direction is horizontal
     if (direction <= 0.5)
     {
-        double x = MAP_SIZE*rand()/RAND_MAX;
-        initial_row = (int)x;
-        //printf("row: %d\n", initial_row);
-        double y = (double)max_index*rand()/RAND_MAX;
-        initial_col = (int)y;
-        printf("col: %f\n\n", y);
+        initial_row = rand() % MAP_SIZE;
+        initial_col = rand() % (max_index + 1);
 
         for (int col = 0; col < size; col++)
         {
@@ -51,48 +50,54 @@ void AddRandomShip(int size, int map[MAP_SIZE][MAP_SIZE]) {
     // 50% chance the direction is vertical
     else
     {
-        initial_row = (int)max_index*rand()/RAND_MAX;
-        initial_col = (int)MAP_SIZE*rand()/RAND_MAX;
+        initial_row = rand() % (max_index + 1);
+        initial_col = rand() % MAP_SIZE;
         
-        /*
         for (int row = 0; row < size; row++)
         {
             map[initial_row + row][initial_col] = size;
         }
-        */
-
     }
-
-    //printf("initial row: %d\ninitial col: %d\n\n", initial_row, initial_col);
-    
-
 }
 
 int main(void) {
 
-    //int map1[MAP_SIZE][MAP_SIZE] = {0};
+    /*
+    int map1[MAP_SIZE][MAP_SIZE] = {0}; 
+    
+    AddRandomShip(5, map1);
+
+    printf("Map 1: \n");
+    PrintArray(map1);
+
+
     int map2[MAP_SIZE][MAP_SIZE] = {0};
-    
-    
-    //AddRandomShip(5, map1);
 
-    //printf("Map: \n");
-    //PrintArray(map1);
+    AddRandomShip(5, map2);
+    AddRandomShip(2, map2);
+    AddRandomShip(3, map2);
+    AddRandomShip(4, map2);    
 
-    for (int b = 0; b < 4; b++)
-    {
-        AddRandomShip(5, map2);
-    }
-
-    if (0 == 1)
-    {
-        AddRandomShip(2, map2);
-        AddRandomShip(3, map2);
-        AddRandomShip(4, map2);    
-    }
-
-    printf("Map: \n");
+    printf("Map 2: \n");
     PrintArray(map2);
+    */
+    
+    srand((unsigned int)time(NULL));
+
+    int map[MAP_SIZE][MAP_SIZE];
+    // Initialise the array
+    for (int i = 0; i < MAP_SIZE; i++) {
+        for (int j = 0; j < MAP_SIZE; j++) {
+            map[i][j] = 0;
+        }
+    }
+    for (int abc = 0; abc < 100; abc++)
+    {
+        AddRandomShip(2, map);
+    }
+    
+    
+    PrintArray(map);
 
     return 0;
 }
