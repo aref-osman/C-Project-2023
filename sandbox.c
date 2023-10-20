@@ -2,13 +2,10 @@
 
 int main(void) {
 
-    int x[3] = {0, 0, 0};
-
-    x[0] = 3/4;
-    x[1] = 6/4;
-    x[2] = 12/4;
-
-    printf("{%d %d %d}", x[0], x[1], x[2]);
+    int a = 0;
+    int b = 0;
+    int c = (a <= 0) && (0 <= b);
+    printf("a: %d | b: %d | c: %d\n\n", a, b, c);
 
     return 0;
 }

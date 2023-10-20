@@ -4,7 +4,6 @@
 #define MAP_SIZE 6
 
 
-
 void PrintArray(int values[MAP_SIZE][MAP_SIZE]) {
     
     for (int row = 0; row < MAP_SIZE; row++)
