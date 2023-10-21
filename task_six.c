@@ -98,10 +98,10 @@ int IsShipValid(int size, int map[MAP_SIZE][MAP_SIZE]) {
                 upper_row_bound = final_row + (final_row != (MAP_SIZE - 1))*1;
                 upper_col_bound = final_col + (final_col != (MAP_SIZE - 1))*1;
                 
-                //printf("orientation: %d\n", orientation);
-                //printf("initial row: %d | initial col: %d | final row: %d | final col: %d\n", initial_row, initial_col, final_row, final_col);
-                //printf("lower row bound: %d | upper row bound: %d\n", lower_row_bound, upper_row_bound);
-                //printf("lower col bound: %d | upper col bound: %d\n\n", lower_col_bound, upper_col_bound);
+                // printf("orientation: %d\n", orientation);
+                // printf("initial row: %d | initial col: %d | final row: %d | final col: %d\n", initial_row, initial_col, final_row, final_col);
+                // printf("lower row bound: %d | upper row bound: %d\n", lower_row_bound, upper_row_bound);
+                // printf("lower col bound: %d | upper col bound: %d\n\n", lower_col_bound, upper_col_bound);
 
                 int ship_length_count = 0;
 
@@ -116,17 +116,28 @@ int IsShipValid(int size, int map[MAP_SIZE][MAP_SIZE]) {
                             );
                         int not_within_ship_bounds = !(within_ship_bounds);
                         //printf("part a: %d | part b: %d | part c: %d\n", part_a, part_b, part_c);
-                        //printf("row: %d | col: %d | not_within_ship_bounds: %d\n", sub_row, sub_col, not_within_ship_bounds);
-
+                        
+                        int not_a_corner_block = (((initial_row <= sub_row) && (sub_row <= final_row)) || ((initial_col <= sub_col) && (sub_col <= final_col)));
+                        
+                        //int not_a_corner_block = 1; 
                         // check that block is not in the corner:
-                        int not_a_corner_block = !(sub_row == lower_row_bound || sub_row == upper_row_bound || sub_col == lower_col_bound || sub_col == upper_col_bound);
+                        //int not_a_corner_block = ((sub_row == initial_row) || (sub_col == initial_col));
+                        /*
+                        if (sub_row == initial_row) {
+                            if (sub_col == initial_col) {
+                                not_a_corner_block = 0;
+                            }
+                        }
+                        */
+                        
+                        // printf("row: %d | col: %d | not_within_ship_bounds: %d | not_corner:%d\n", sub_row, sub_col, not_within_ship_bounds, not_a_corner_block);
 
                         // check that the block being checked is not part of the ship
                         if (not_within_ship_bounds && not_a_corner_block) {
                             
                             // check if there's non-empty blocks
                             if (map[sub_row][sub_col] != 0) {
-                                printf("Error 1\n");
+                                // printf("Error 1\n");
                                 // if any found, then ship is invalid
                                 validity = 0;
                                 //printf("Validity check failed at sub_row %d and sub_col %d\n\n", sub_row, sub_col);
@@ -136,7 +147,7 @@ int IsShipValid(int size, int map[MAP_SIZE][MAP_SIZE]) {
 
                         else if (within_ship_bounds) {
                             if (map[sub_row][sub_col] != size) {
-                                printf("Error 2\n");
+                                // printf("Error 2\n");
                                 // if any part of ship is a different number than the size, then ship is invalid
                                 validity = 0;
                                 return validity;
@@ -153,7 +164,7 @@ int IsShipValid(int size, int map[MAP_SIZE][MAP_SIZE]) {
                 // if ship is shorter than it should, then ship is invalid
                 if (ship_length_count != size)
                 {
-                    printf("Error 3\n");
+                    // printf("Error 3\n");
                     validity = 0;
                     return validity;
                 }
@@ -167,38 +178,27 @@ int IsShipValid(int size, int map[MAP_SIZE][MAP_SIZE]) {
             }
         }
     }
-    printf("Error 4\n");
+    // printf("Error 4\n");
     //printf("what the heckkk");
     return validity;
 }
 
 int main(void) {
 
-    int map[MAP_SIZE][MAP_SIZE] = {
-        {0, 0, 0, 4, 0, 0}, 
-        {0, 0, 0, 4, 0, 3},
-        {0, 0, 0, 4, 0, 3},
-        {2, 0, 0, 4, 0, 3},
-        {2, 0, 0, 0, 0, 0},
-        {0, 5, 5, 5, 5, 5}
-        };
+
     int valid, shipSize;
-
-
-    // Initialise a random (and valid) map 1000 times
-    //for (int i = 0; i < 1000; i++) {
-    //InitialiseMap(map);
-    // All ships are in valid positions
-    // Check that IsShipValid() returns true
+    int map[6][6] = {
+    {5, 0, 0, 2, 0, 0},
+    {5, 0, 4, 2, 4, 4},
+    {5, 0, 0, 0, 0, 0},
+    {3, 0, 0, 0, 0, 0},
+    {3, 0, 0, 0, 0, 0},
+    {3, 0, 0, 0, 0, 0}
+    };
     for (shipSize = 2; shipSize <= 5; shipSize++) {
-        valid = IsShipValid(shipSize, map);
-        if (!valid) {
-            printf("Ship number %d is invalid lol!\n", shipSize);
-            //PrintArray(map);            
-        }
+    valid = IsShipValid(shipSize, map);
+    printf("Is ship %d valid? %d\n", shipSize, valid);
     }
-    //}
-    printf("All ships are valid");
     
     return 0;
 }
